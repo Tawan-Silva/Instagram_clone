@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AutenticacaoService } from 'src/app/service/autenticacao.service';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 @Inject({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     'senha': new FormControl(null)
   })
 
-  
+
   public exibirPainelCadastro(): void {
     this.exibirPainel.emit('cadastro')
     console.log("foi");
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.formulario.value.email,
       this.formulario.value.senha
       );
-    
+
   }
 
   ngOnInit(): void {
