@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as firebase from 'firebase';
 import { interval, Subject } from 'rxjs';
@@ -18,6 +18,8 @@ export class IncluirPublicacaoComponent implements OnInit {
   private imagem: any;
   public progressoPublicacao: string = "pendente";
   public porcentagemUpload?: number;
+
+  @Output() public atualizarTimeLine: EventEmitter<any> = new EventEmitter;
 
   public formulario: FormGroup = new FormGroup({
     "titulo": new FormControl(null)
@@ -42,8 +44,6 @@ export class IncluirPublicacaoComponent implements OnInit {
       imagem: this.imagem[0]
     })
 
-
-
     // para o observable
     let continua = new Subject()
     let acompanhamentoUpload = interval(1500).pipe(takeUntil(continua))
@@ -60,6 +60,8 @@ export class IncluirPublicacaoComponent implements OnInit {
 
         if(this.progresso.status === 'concluido') {
           this.progressoPublicacao = 'concluido'
+          // emitir um evento do component parent (home)
+          this.atualizarTimeLine.emit();
           continua.next(false);
           console.log(continua);
 
