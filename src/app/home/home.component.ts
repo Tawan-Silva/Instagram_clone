@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   public logout(): void {
-    
+
   }
 
 }
